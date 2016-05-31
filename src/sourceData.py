@@ -5,6 +5,8 @@ import cnfg
 import pandas as pd
 import numpy as np
 import tweepy
+import json
+from pymongo import MongoClient
 
 home = expanduser('~')
 twitterConfigFile = '/.twitter_config'
@@ -54,8 +56,7 @@ def write2db(data, query):
     store the query string used to fetch the symbol for quick cache retrieval
     later on.
     """
-    import json
-    from pymongo import MongoClient
+    
     
     client = MongoClient()
     db = client.tweet_stream
@@ -90,7 +91,7 @@ def read_from_db(#HOW DO WE READ FROM MONGODB???):
     """
     id_list = [tweet.id for tweet in results]
     ##unpack into dataframe
-    #data = pd.DataFrame(id_list,columns=['id'])
+    data = pd.DataFrame(id_list,columns=['id'])
     
     #data["text"]= [tweet.text.encode('utf-8') for tweet in results]
     #data["datetime"]=[tweet.created_at for tweet in results]
